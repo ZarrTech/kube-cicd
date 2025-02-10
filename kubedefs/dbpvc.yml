@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+meatadata:
+  name: vprodb-pvc
+  labels:
+    name: vprodb-pvc
+spec:
+  storageClassName: default
+  accessModes:
+    - ReadWriteOnce
+  resoiurces:
+    requests:
+      storage: 3Gi
