@@ -1,0 +1,14 @@
+controller:
+  replicaCount: 1
+  image: "zarrcloud/jenkins:latest"
+  service:
+    type: LoadBalancer
+    port: 8080
+
+
+
+persistence:
+  enabled: true
+  storageClass: "default"
+  accessMode: ReadWriteOnce
+  storage: 10Gi
