@@ -19,6 +19,9 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 # Install Helm
 RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
+# Install kubernetes.core collection
+RUN ansible-galaxy collection install kubernetes.core
+
 # Set working directory
 WORKDIR /ansible
 
