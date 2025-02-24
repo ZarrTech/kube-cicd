@@ -11,8 +11,9 @@ spec:
     metadata:
       labels:
         app: jenkins
+      annotations:
+        backup.velero.io/backup-volumes: jenkins-data
     spec:
-      serviceAccountName: jenkins-s3-sa
       securityContext:
         fsGroup: 1000
       containers:

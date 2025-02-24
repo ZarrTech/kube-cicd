@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vprodb
+  labels:
+    name: vprodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vprodb
+  template:
+    metadata:
+      labels:
+        app: vprodb
+      annotations:
+        backup.velero.io/backup-volumes: vprodb-data
+    spec:
+      containers:
+        - name: vprodb
+          image: zarrcloud/vprofiledb
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: vprodb-data
+              mountPath: /var/lib/mysql
+          ports:
+            - name: vprodb-port
+              containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: vprodb-secret
+                  key: db-pass
+      volumes:
+        - name: vprodb-data
+          persistentVolumeClaim:
+            claimName: vprodb-pvc
+      initContainers:
+        - name: busybox
+          image: busybox:latest
+          args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+          volumeMounts:
+            - name: vprodb-data
+              mountPath: /var/lib/mysql
+

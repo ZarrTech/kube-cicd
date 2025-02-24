@@ -1,0 +1,7 @@
+{
+  "issuer": "https://s3.amazonaws.com/my-k8s-backup/",
+  "jwks_uri": "https://s3.amazonaws.com/my-k8s-backup/openid/v1/jwks",
+  "response_types_supported": ["id_token"],
+  "subject_types_supported": ["public"],
+  "id_token_signing_alg_values_supported": ["RS256"]
+}
